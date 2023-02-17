@@ -9,13 +9,16 @@ namespace TestIntegration.API.Controllers
     [ApiController]
     public class GetUsersController : ControllerBase
     {
+        private readonly ILogger<GetUsersController> _logger;
         private readonly IAuthorizationService _authorizationService;
         private readonly IUsersInformationService _usersInformationService;
 
         public GetUsersController(
+            ILogger<GetUsersController> logger,
             IAuthorizationService authorizationService, 
             IUsersInformationService usersInformationService)
         {
+            _logger = logger;
             _authorizationService = authorizationService;
             _usersInformationService = usersInformationService;
         }
@@ -41,6 +44,7 @@ namespace TestIntegration.API.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.ToString());
                 return StatusCode(500, ex.ToString());
             }
         }

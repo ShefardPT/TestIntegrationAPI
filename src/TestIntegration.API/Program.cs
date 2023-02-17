@@ -1,3 +1,5 @@
+using NLog.Web;
+
 #region Main
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,9 @@ void ConfigureServices()
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
 }
 
 void ConfigurePipeline()
