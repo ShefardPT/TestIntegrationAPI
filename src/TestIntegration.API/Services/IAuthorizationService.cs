@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using TestIntegration.API.Models;
 
 namespace TestIntegration.API.Services
 {
@@ -12,6 +12,6 @@ namespace TestIntegration.API.Services
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns>Результат авторизации</returns>
-        Task<AuthorizationResult> AuthorizeAsync(HttpContext httpContext);
+        Task<IOperationResult> AuthorizeAsync(HttpContext httpContext);
     }
 }

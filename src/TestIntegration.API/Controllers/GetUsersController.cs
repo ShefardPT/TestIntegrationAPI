@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using TestIntegration.API.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using TestIntegration.API.Services;
 
 namespace TestIntegration.API.Controllers
 {
+    /// <summary>
+    /// Класс-контроллер получения информации о пользователях
+    /// </summary>
     [Route("api/users")]
     [ApiController]
     public class GetUsersController : ControllerBase
@@ -23,6 +24,10 @@ namespace TestIntegration.API.Controllers
             _usersInformationService = usersInformationService;
         }
 
+        /// <summary>
+        /// Получить список пользователей
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
@@ -31,7 +36,7 @@ namespace TestIntegration.API.Controllers
                 var authorizationResult = await _authorizationService.AuthorizeAsync(HttpContext);
 
                 object result;
-                if (authorizationResult.Succeeded)
+                if (authorizationResult.IsSuccess)
                 {
                     result = await _usersInformationService.GetUsersFullInfoAsync();
                 }
