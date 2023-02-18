@@ -29,8 +29,14 @@ namespace TestIntegration.API.Services
                 return OperationResult.Failed("Учетные данные не представлены.");
             }
 
-            var usersData = await _infoService.GetUsersAsync();
-            var usersDataDict = usersData
+            var usersDataResult = await _infoService.GetUsersAsync();
+
+            if (!usersDataResult.IsSuccess)
+            {
+                return OperationResult.Failed(usersDataResult.Errors);
+            }
+
+            var usersDataDict = usersDataResult.Data
                 .ToDictionary(x => x.Email, x => x);
 
             if (usersDataDict.TryGetValue(credentials.Email, out var user) &&

@@ -46,6 +46,15 @@ namespace TestIntegration.API.Models
         {
             return new OperationResult() { Errors = errors.ToList() };
         }
+
+        /// <summary>
+        /// Неуспешный результат с указанием причин
+        /// </summary>
+        /// <returns></returns>
+        public static OperationResult Failed(IEnumerable<string> errors)
+        {
+            return new OperationResult() { Errors = errors.ToList() };
+        }
     }
 
     /// <summary>
@@ -83,6 +92,15 @@ namespace TestIntegration.API.Models
         public new static OperationDataResult<T> Failed(params string[] errors)
         {
             return new OperationDataResult<T> { Errors = errors.ToList() };
+        }
+
+        /// <summary>
+        /// Неуспешный результат с указанием причин
+        /// </summary>
+        /// <returns></returns>
+        public new static OperationDataResult<T> Failed(IEnumerable<string> errors)
+        {
+            return new OperationDataResult<T>() { Errors = errors.ToList() };
         }
     }
 }
