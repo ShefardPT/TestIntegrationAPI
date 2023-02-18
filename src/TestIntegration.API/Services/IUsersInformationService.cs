@@ -10,11 +10,11 @@ namespace TestIntegration.API.Services
         /// <summary>
         /// Получить информацию о пользователях в кратком виде
         /// </summary>
-        Task<UserDataBaseDTO[]> GetUsersShortInfoAsync();
+        Task<IOperationResult<UserDataBaseDTO[]>> GetUsersShortInfoAsync();
 
         /// <summary>
         /// Получить информацию о пользователях в полном виде
         /// </summary>
-        Task<UserDataFullDTO[]> GetUsersFullInfoAsync();
+        Task<IOperationResult<UserDataFullDTO[]>> GetUsersFullInfoAsync();
     }
 }

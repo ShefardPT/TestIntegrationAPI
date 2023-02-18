@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using TestIntegration.API.Models;
 
-namespace TestIntegration.API.Services.Impl
+namespace TestIntegration.API.Services
 {
     public class JsonPlaceholderUsersInformationIntegrationService : IUsersInformationIntegrationService
     {

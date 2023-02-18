@@ -1,6 +1,5 @@
 using NLog.Web;
 using TestIntegration.API.Services;
-using TestIntegration.API.Services.Impl;
 
 #region Main
 
@@ -30,6 +29,7 @@ void ConfigureServices()
 
     builder.Services.AddHttpClient<IUsersInformationIntegrationService, JsonPlaceholderUsersInformationIntegrationService>();
     builder.Services.AddScoped<IAuthorizationService, HeaderAuthorizationService>();
+    builder.Services.AddScoped<IUsersInformationService, UsersInformationService>();
 }
 
 void ConfigurePipeline()

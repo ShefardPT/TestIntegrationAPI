@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestIntegration.API.Models;
 using TestIntegration.API.Services;
 
 namespace TestIntegration.API.Controllers
@@ -35,7 +36,7 @@ namespace TestIntegration.API.Controllers
             {
                 var authorizationResult = await _authorizationService.AuthorizeAsync(HttpContext);
 
-                object result;
+                IOperationResult result;
                 if (authorizationResult.IsSuccess)
                 {
                     result = await _usersInformationService.GetUsersFullInfoAsync();
