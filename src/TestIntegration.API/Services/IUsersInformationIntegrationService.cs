@@ -11,6 +11,6 @@ namespace TestIntegration.API.Services
         /// Получить данные о пользователях
         /// </summary>
         /// <returns></returns>
-        Task<ExternalUserDataDTO[]> GetUsersAsync();
+        Task<IOperationResult<ExternalUserDataDTO[]>> GetUsersAsync();
     }
 }

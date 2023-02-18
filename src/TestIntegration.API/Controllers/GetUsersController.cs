@@ -50,7 +50,7 @@ namespace TestIntegration.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.ToString());
-                return StatusCode(500, ex.ToString());
+                return StatusCode(500, ex.Message);
             }
         }
     }

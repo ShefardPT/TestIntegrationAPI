@@ -57,6 +57,32 @@ namespace TestIntegration.API.Models
         /// Данные результат операции
         /// </summary>
         [JsonPropertyName("data")]
-        public T Data { get; init; }
+        public T? Data { get; init; }
+
+        /// <summary>
+        /// Успешный результат
+        /// </summary>
+        public new static OperationDataResult<T> Successed(T data)
+        {
+            return new OperationDataResult<T>() { Data = data };
+        }
+
+        /// <summary>
+        /// Неуспешный результат
+        /// </summary>
+        /// <returns></returns>
+        public new static OperationDataResult<T> Failed()
+        {
+            return new OperationDataResult<T> { Errors = new List<string>() { "Произошла ошибка при выполнении операции." } };
+        }
+
+        /// <summary>
+        /// Неуспешный результат с указанием причин
+        /// </summary>
+        /// <returns></returns>
+        public new static OperationDataResult<T> Failed(params string[] errors)
+        {
+            return new OperationDataResult<T> { Errors = errors.ToList() };
+        }
     }
 }
