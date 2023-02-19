@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using NLog.Web;
+using TestIntegration.API.DataAccess;
 using TestIntegration.API.Services;
 
 #region Main
@@ -27,6 +29,11 @@ void ConfigureServices()
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+    {
+        opt.UseNpgsql("name=ConnectionStrings:AppDbConnection");  
+    });
+
     builder.Services.AddHttpClient<IUsersInformationIntegrationService, JsonPlaceholderUsersInformationIntegrationService>();
     builder.Services.AddScoped<IAuthorizationService, HeaderAuthorizationService>();
     builder.Services.AddScoped<IUsersInformationService, UsersInformationService>();
@@ -38,6 +45,12 @@ void ConfigurePipeline()
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+    }
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        appDbContext.Database.EnsureCreated();
     }
 
     app.UseHttpsRedirection();
