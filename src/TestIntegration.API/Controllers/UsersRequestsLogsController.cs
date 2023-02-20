@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestIntegration.API.DataAccess;
+using TestIntegration.API.Models;
 
 namespace TestIntegration.API.Controllers
 {
@@ -44,7 +44,13 @@ namespace TestIntegration.API.Controllers
                 query = query.Where(x => EF.Functions.ILike(x.Login, $"%{userLogin}%"));
             }
 
-            var logs = await query.ToArrayAsync();
+            var logs = await query
+                .Select(x => new UsersInformationRequestRecordDTO()
+                {
+                    Login = x.Login,
+                    RequestedOn = x.RequestedOn
+                })
+                .ToArrayAsync();
             
             return Ok(logs);
         }

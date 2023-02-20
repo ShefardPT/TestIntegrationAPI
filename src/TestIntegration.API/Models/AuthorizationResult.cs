@@ -1,7 +1,13 @@
 ﻿namespace TestIntegration.API.Models
 {
+    /// <summary>
+    /// Класс-модель для представления результатов авторизации пользователя
+    /// </summary>
     public record AuthorizationResult : OperationResult
     {
+        /// <summary>
+        /// Данные об авторизуемом пользователе
+        /// </summary>
         public AuthorizedUserInformation User { get; init; }
 
         /// <summary>
