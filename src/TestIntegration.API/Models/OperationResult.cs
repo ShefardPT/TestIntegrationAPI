@@ -30,15 +30,6 @@ namespace TestIntegration.API.Models
         }
 
         /// <summary>
-        /// Неуспешный результат
-        /// </summary>
-        /// <returns></returns>
-        public static OperationResult Failed()
-        {
-            return new OperationResult() { Errors = new List<string>() { "Произошла ошибка при выполнении операции." } };
-        }
-
-        /// <summary>
         /// Неуспешный результат с указанием причин
         /// </summary>
         /// <returns></returns>
@@ -74,15 +65,6 @@ namespace TestIntegration.API.Models
         public new static OperationDataResult<T> Successed(T data)
         {
             return new OperationDataResult<T>() { Data = data };
-        }
-
-        /// <summary>
-        /// Неуспешный результат
-        /// </summary>
-        /// <returns></returns>
-        public new static OperationDataResult<T> Failed()
-        {
-            return new OperationDataResult<T> { Errors = new List<string>() { "Произошла ошибка при выполнении операции." } };
         }
 
         /// <summary>

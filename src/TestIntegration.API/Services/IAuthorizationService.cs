@@ -12,6 +12,6 @@ namespace TestIntegration.API.Services
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns>Результат авторизации</returns>
-        Task<IOperationResult> AuthorizeAsync(HttpContext httpContext);
+        Task<AuthorizationResult> AuthorizeAsync(HttpContext httpContext);
     }
 }

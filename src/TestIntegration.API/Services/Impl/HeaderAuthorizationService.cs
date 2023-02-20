@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using TestIntegration.API.Models;
+﻿using TestIntegration.API.Models;
 
 namespace TestIntegration.API.Services
 {
@@ -20,33 +19,36 @@ namespace TestIntegration.API.Services
         }
 
         /// <inheritdoc />
-        public async Task<IOperationResult> AuthorizeAsync(HttpContext httpContext)
+        public async Task<AuthorizationResult> AuthorizeAsync(HttpContext httpContext)
         {
             var credentials = GetCredentialsFromHeaders(httpContext.Request.Headers);
 
             if (credentials == null)
             {
-                return OperationResult.Failed("Учетные данные не представлены.");
+                return AuthorizationResult.Failed("Учетные данные не представлены.");
             }
 
             var usersDataResult = await _infoService.GetUsersAsync();
 
             if (!usersDataResult.IsSuccess)
             {
-                return OperationResult.Failed(usersDataResult.Errors);
+                return AuthorizationResult.Failed(usersDataResult.Errors);
             }
 
             var usersDataDict = usersDataResult.Data
-                .ToDictionary(x => x.Email, x => x);
+                .ToDictionary(x => x.Email, x => x.Phone);
 
-            if (usersDataDict.TryGetValue(credentials.Email, out var user) &&
-                user.Phone == credentials.Phone)
+            if (usersDataDict.TryGetValue(credentials.Email, out var phone) &&
+                phone == credentials.Phone)
             {
-                return OperationResult.Successed();
+                return AuthorizationResult.Successed(new AuthorizedUserInformation()
+                {
+                    Login = credentials.Email
+                });
             }
             else
             {
-                return OperationResult.Failed("Данного пользователя не существует или пароль не вереню");
+                return AuthorizationResult.Failed("Данного пользователя не существует или пароль не вереню");
             }
         }
 
@@ -55,8 +57,8 @@ namespace TestIntegration.API.Services
         /// </summary>
         private HeaderAuthorizationCredentials GetCredentialsFromHeaders(IHeaderDictionary headers)
         {
-            var isLogin = headers.TryGetValue("email", out var email);
-            var isPassword = headers.TryGetValue("phone", out var phone);
+            var isLogin = headers.TryGetValue("login", out var email);
+            var isPassword = headers.TryGetValue("password", out var phone);
 
             if (isLogin && isPassword)
             {
