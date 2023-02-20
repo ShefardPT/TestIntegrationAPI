@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 using TestIntegration.API.DataAccess;
+using TestIntegration.API.Models;
 using TestIntegration.API.Services;
 
 #region Main
 
+var temp = new AuthorizationResult();
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -39,6 +41,7 @@ void ConfigureServices()
     builder.Services.AddHttpClient<IUsersInformationIntegrationService, JsonPlaceholderUsersInformationIntegrationService>();
     builder.Services.AddScoped<IAuthorizationService, HeaderAuthorizationService>();
     builder.Services.AddScoped<IUsersInformationService, UsersInformationService>();
+    builder.Services.AddScoped<IUsersInformationRequestLogger, DatabaseUsersInformationRequestLogger>();
 }
 
 void ConfigurePipeline()
