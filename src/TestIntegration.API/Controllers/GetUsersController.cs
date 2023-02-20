@@ -14,15 +14,18 @@ namespace TestIntegration.API.Controllers
         private readonly ILogger<GetUsersController> _logger;
         private readonly IAuthorizationService _authorizationService;
         private readonly IUsersInformationService _usersInformationService;
+        private readonly IUsersInformationRequestLogger _requestLogger;
 
         public GetUsersController(
             ILogger<GetUsersController> logger,
             IAuthorizationService authorizationService, 
-            IUsersInformationService usersInformationService)
+            IUsersInformationService usersInformationService, 
+            IUsersInformationRequestLogger requestLogger)
         {
             _logger = logger;
             _authorizationService = authorizationService;
             _usersInformationService = usersInformationService;
+            _requestLogger = requestLogger;
         }
 
         /// <summary>
@@ -36,6 +39,8 @@ namespace TestIntegration.API.Controllers
             {
                 var authorizationResult = await _authorizationService.AuthorizeAsync(HttpContext);
 
+                await _requestLogger.LogRequestAsync(authorizationResult);
+                
                 IOperationResult result;
                 if (authorizationResult.IsSuccess)
                 {
@@ -46,7 +51,14 @@ namespace TestIntegration.API.Controllers
                     result = await _usersInformationService.GetUsersShortInfoAsync();
                 }
 
-                return Ok(result);
+                if (result.IsSuccess)
+                {
+                    return Ok(result); 
+                }
+                else
+                {
+                    return StatusCode(500, result);
+                }
             }
             catch (Exception ex)
             {

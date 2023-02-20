@@ -48,7 +48,14 @@ namespace TestIntegration.API.Services
             }
             else
             {
-                return AuthorizationResult.Failed("Данного пользователя не существует или пароль не вереню");
+                return new AuthorizationResult()
+                {
+                    User = new AuthorizedUserInformation()
+                    {
+                        Login = credentials.Email
+                    },
+                    Errors = new List<string>() { "Данного пользователя не существует или пароль не верен." }
+                };
             }
         }
 
