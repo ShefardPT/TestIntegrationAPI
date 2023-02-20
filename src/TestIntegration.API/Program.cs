@@ -19,6 +19,8 @@ app.Run();
 
 #endregion
 
+#region Configure
+
 void ConfigureServices()
 {
     builder.Services.AddControllers();
@@ -31,7 +33,7 @@ void ConfigureServices()
 
     builder.Services.AddDbContext<AppDbContext>(opt =>
     {
-        opt.UseNpgsql("name=ConnectionStrings:AppDbConnection");  
+        opt.UseNpgsql("name=ConnectionStrings:AppDbConnection");
     });
 
     builder.Services.AddHttpClient<IUsersInformationIntegrationService, JsonPlaceholderUsersInformationIntegrationService>();
@@ -58,4 +60,6 @@ void ConfigurePipeline()
     app.UseAuthorization();
 
     app.MapControllers();
-}
+} 
+
+#endregion

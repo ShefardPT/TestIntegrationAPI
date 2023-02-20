@@ -8,10 +8,10 @@ namespace TestIntegration.API.Models
     public record UserDataBaseDTO
     {
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string Email { get; init; }
 
         /// <summary>
         /// Преобразовать модель данных из внешнего источника

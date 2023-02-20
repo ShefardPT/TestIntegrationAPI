@@ -8,22 +8,22 @@ namespace TestIntegration.API.Models
     public record UserDataFullDTO : UserDataBaseDTO
     {
         [JsonPropertyName("id")]
-        public long Id { get; set; }
+        public long Id { get; init; }
 
         [JsonPropertyName("username")]
-        public string Username { get; set; }
+        public string Username { get; init; }
         
         [JsonPropertyName("phone")]
-        public string Phone { get; set; }
+        public string Phone { get; init; }
 
         [JsonPropertyName("website")]
-        public string Website { get; set; }
+        public string Website { get; init; }
 
         [JsonPropertyName("address")]
-        public UserAddressDataDTO Address { get; set; }
+        public UserAddressDataDTO Address { get; init; }
 
         [JsonPropertyName("company")]
-        public UserCompanyDataDTO Company { get; set; }
+        public UserCompanyDataDTO Company { get; init; }
 
         /// <summary>
         /// Преобразовать модель данных из внешнего источника
@@ -68,19 +68,19 @@ namespace TestIntegration.API.Models
     public record UserAddressDataDTO
     {
         [JsonPropertyName("street")]
-        public string Street { get; set; }
+        public string Street { get; init; }
 
         [JsonPropertyName("suite")]
-        public string Suite { get; set; }
+        public string Suite { get; init; }
 
         [JsonPropertyName("city")]
-        public string City { get; set; }
+        public string City { get; init; }
 
         [JsonPropertyName("zipcode")]
-        public string Zipcode { get; set; }
+        public string Zipcode { get; init; }
 
         [JsonPropertyName("geo")]
-        public UserAddressGeoDataDTO Geo { get; set; }
+        public UserAddressGeoDataDTO Geo { get; init; }
     }
 
     /// <summary>
@@ -89,10 +89,10 @@ namespace TestIntegration.API.Models
     public record UserAddressGeoDataDTO
     {
         [JsonPropertyName("lat")]
-        public string Lat { get; set; }
+        public string Lat { get; init; }
 
         [JsonPropertyName("lng")]
-        public string Lng { get; set; }
+        public string Lng { get; init; }
     }
 
     /// <summary>
@@ -101,12 +101,12 @@ namespace TestIntegration.API.Models
     public record UserCompanyDataDTO
     {
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
         [JsonPropertyName("catchPhrase")]
-        public string CatchPhrase { get; set; }
+        public string CatchPhrase { get; init; }
 
         [JsonPropertyName("bs")]
-        public string Bs { get; set; }
+        public string Bs { get; init; }
     }
 }
